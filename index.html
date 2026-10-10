@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#1a2332" />
+  <title>守界 · 冲突力训练</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app" id="app">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">界</div>
+        <div>
+          <div class="brand-name">守界</div>
+          <div class="brand-tag">冲突力训练</div>
+        </div>
+      </div>
+      <nav class="nav" aria-label="主导航">
+        <button class="nav-item active" data-view="home">首页</button>
+        <button class="nav-item" data-view="mirror">照镜</button>
+        <button class="nav-item" data-view="drill">演练</button>
+        <button class="nav-item" data-view="scripts">话术</button>
+        <button class="nav-item" data-view="journal">复盘</button>
+        <button class="nav-item" data-view="principles">原则</button>
+      </nav>
+      <div class="sidebar-foot">
+        <div class="streak" id="streakCard">
+          <span class="streak-label">连续训练</span>
+          <strong id="streakDays">0</strong>
+          <span class="streak-unit">天</span>
+        </div>
+        <p class="sidebar-note">温柔里带着锋芒，守住自己的边界。</p>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="menu-btn" id="menuBtn" aria-label="打开菜单">☰</button>
+        <div class="topbar-title" id="topbarTitle">首页</div>
+        <div class="topbar-stats" id="topbarStats"></div>
+      </header>
+
+      <!-- HOME -->
+      <section class="view active" id="view-home" data-title="首页">
+        <div class="hero">
+          <p class="eyebrow">善良 ≠ 软弱</p>
+          <h1>重塑老实人本质：<br />学会直面冲突</h1>
+          <p class="lede">
+            老实人处处吃亏，核心往往不是心地太好，而是<strong>缺乏处理冲突的能力</strong>。
+            真正通透的人，心底保留善意，同时拥有捍卫自我的底气。
+          </p>
+          <div class="hero-actions">
+            <button class="btn primary" data-go="mirror">先照一照自己</button>
+            <button class="btn ghost" data-go="drill">直接开始演练</button>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <article class="card mode-card" data-go="mirror">
+            <div class="card-kicker">逃避模式 · 01</div>
+            <h3>一味退让</h3>
+            <p>牺牲自身利益息事宁人，用妥协换短暂平静。</p>
+          </article>
+          <article class="card mode-card" data-go="mirror">
+            <div class="card-kicker">逃避模式 · 02</div>
+            <h3>压抑情绪</h3>
+            <p>当场不说，事后内耗，愤怒委屈全都压在心底。</p>
+          </article>
+          <article class="card mode-card" data-go="mirror">
+            <div class="card-kicker">逃避模式 · 03</div>
+            <h3>自我归因</h3>
+            <p>怕对立，习惯先认错讨好，错不在己也道歉。</p>
+          </article>
+        </div>
+
+        <section class="panel">
+          <div class="panel-head">
+            <h2>今日可练</h2>
+            <span class="chip" id="todayProgress">0 / 3</span>
+          </div>
+          <div class="today-list" id="todayList"></div>
+        </section>
+
+        <section class="panel insight">
+          <h2>记住这句话</h2>
+          <blockquote id="dailyQuote">
+            学会处理冲突，不是变得尖酸刻薄，而是掌握温和坚定的沟通方式。
+          </blockquote>
+        </section>
+      </section>
+
+      <!-- MIRROR -->
+      <section class="view" id="view-mirror" data-title="照镜">
+        <div class="section-intro">
+          <p class="eyebrow">自我觉察</p>
+          <h1>你的冲突逃避模式</h1>
+          <p>诚实作答。这里没有对错，只有更清晰的自我看见。</p>
+        </div>
+
+        <div id="mirrorQuiz" class="quiz"></div>
+        <div id="mirrorResult" class="result-panel hidden"></div>
+      </section>
+
+      <!-- DRILL -->
+      <section class="view" id="view-drill" data-title="演练">
+        <div class="section-intro">
+          <p class="eyebrow">职场情景</p>
+          <h1>冲突演练场</h1>
+          <p>选一个场景，先感受本能反应，再练习温和坚定的回应。</p>
+        </div>
+
+        <div class="filters" id="drillFilters">
+          <button class="chip-btn active" data-filter="all">全部</button>
+          <button class="chip-btn" data-filter="workload">甩锅/推活</button>
+          <button class="chip-btn" data-filter="credit">功劳/背锅</button>
+          <button class="chip-btn" data-filter="meeting">会议冲突</button>
+          <button class="chip-btn" data-filter="boundary">边界侵犯</button>
+        </div>
+
+        <div class="scenario-grid" id="scenarioGrid"></div>
+
+        <div id="drillStage" class="drill-stage hidden"></div>
+      </section>
+
+      <!-- SCRIPTS -->
+      <section class="view" id="view-scripts" data-title="话术">
+        <div class="section-intro">
+          <p class="eyebrow">温和坚定</p>
+          <h1>可直接开口的话术库</h1>
+          <p>先照着念，再改成你的语气。目标是<strong>清晰、尊重、不讨好</strong>。</p>
+        </div>
+
+        <div class="script-search">
+          <input type="search" id="scriptSearch" placeholder="搜索场景，如：加班、甩锅、当面指责…" />
+        </div>
+        <div class="script-list" id="scriptList"></div>
+      </section>
+
+      <!-- JOURNAL -->
+      <section class="view" id="view-journal" data-title="复盘">
+        <div class="section-intro">
+          <p class="eyebrow">事后不内耗</p>
+          <h1>冲突复盘日记</h1>
+          <p>把憋在心里的戏，写成一次可改进的练习。</p>
+        </div>
+
+        <form class="journal-form" id="journalForm">
+          <label>
+            <span>发生了什么？（客观事实，尽量不带评价）</span>
+            <textarea name="fact" rows="3" required placeholder="例：周四例会上，同事把我负责的延期说成是我没同步。"></textarea>
+          </label>
+          <label>
+            <span>当时你的本能反应是？</span>
+            <select name="instinct" required>
+              <option value="">请选择</option>
+              <option value="retreat">一味退让，息事宁人</option>
+              <option value="suppress">压抑情绪，事后内耗</option>
+              <option value="blame">害怕对立，自我归因认错</option>
+              <option value="assert">已经尝试表达边界</option>
+            </select>
+          </label>
+          <label>
+            <span>你真正想说、却没说出口的是？</span>
+            <textarea name="unsaid" rows="2" required placeholder="例：进度风险我周三已经在群里提过，责任不该单方面归到我。"></textarea>
+          </label>
+          <label>
+            <span>下次若再发生，你准备怎么说？（温和 + 坚定）</span>
+            <textarea name="next" rows="3" required placeholder="例：关于延期原因，我周三已在群里同步风险。我们可以一起看一下当时的记录，再分工补救。"></textarea>
+          </label>
+          <button type="submit" class="btn primary">保存这次复盘</button>
+        </form>
+
+        <div class="panel">
+          <div class="panel-head">
+            <h2>过往复盘</h2>
+            <button class="btn text" id="clearJournal" type="button">清空</button>
+          </div>
+          <div id="journalList" class="journal-list"></div>
+        </div>
+      </section>
+
+      <!-- PRINCIPLES -->
+      <section class="view" id="view-principles" data-title="原则">
+        <div class="section-intro">
+          <p class="eyebrow">底层心法</p>
+          <h1>四条原则，守住自己</h1>
+        </div>
+
+        <div class="principle-list">
+          <article class="principle">
+            <div class="principle-num">01</div>
+            <div>
+              <h3>分清边界，敢于温和拒绝</h3>
+              <p>别人触碰你的利益时，不用愧疚。直白清晰表明立场：这件事我帮不了 / 这个锅我不背 / 这个时间我做不到。</p>
+              <div class="example">「这个需求我这周排不开。如果你认为优先级更高，我们一起找主管重新排。」</div>
+            </div>
+          </article>
+          <article class="principle">
+            <div class="principle-num">02</div>
+            <div>
+              <h3>及时表达感受，不事后内耗</h3>
+              <p>当下不舒服就客观说出感受。冲突不会因为逃避消失，只会变成夜里反复回放的片子。</p>
+              <div class="example">「刚才那句话让我有点被误解了，我想补充一下事实。」</div>
+            </div>
+          </article>
+          <article class="principle">
+            <div class="principle-num">03</div>
+            <div>
+              <h3>就事论事，不害怕对立</h3>
+              <p>合理的争执是在厘清问题。一段健康的关系，容得下一次当面说清楚。</p>
+              <div class="example">「我们先把责任边界说清楚，再谈怎么补救，这样对大家都公平。」</div>
+            </div>
+          </article>
+          <article class="principle">
+            <div class="principle-num">04</div>
+            <div>
+              <h3>不必讨好所有人</h3>
+              <p>有人会不喜欢你的拒绝，这很正常。用无底线迁就换来的喜欢，本来就不值钱。</p>
+              <div class="example">「我理解你着急，但我需要按既定流程做，不能省略这一步。」</div>
+            </div>
+          </article>
+        </div>
+
+        <section class="panel dark">
+          <h2>恶性循环提醒</h2>
+          <ul class="cycle-list">
+            <li><strong>边界被突破</strong>：别人发现你只忍不反击，就会得寸进尺。</li>
+            <li><strong>身心内耗</strong>：没说出口的不满会诱发失眠、低落、自我否定。</li>
+            <li><strong>积攒爆发</strong>：小事隐忍到某天失控，旁人只会觉得你脾气古怪。</li>
+          </ul>
+          <p class="panel-footer">一开始就温和解决，往往走不到决裂那一步。</p>
+        </section>
+      </section>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
